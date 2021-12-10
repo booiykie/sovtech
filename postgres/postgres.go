@@ -40,46 +40,47 @@ func ConnString(host string, port int, user string, dbName string) string {
 }
 
 // User shape
-type User struct {
-	ID         int
-	Name       string
-	Age        int
-	Profession string
-	Friendly   bool
+type Person struct {
+	ID        int
+	Name      string
+	Height    int
+	Mass      int
+	Gender    string
+	Homeworld string
 }
 
-// GetUsersByName is called within our user query for graphql
-func (d *Db) GetUsersByName(name string) []User {
+// GetPeople is called within our user query for graphql
+func (d *Db) GetPeople(name string) []Person {
 	// Prepare query, takes a name argument, protects from sql injection
-	stmt, err := d.Prepare("SELECT * FROM users WHERE name=$1")
+	stmt, err := d.Prepare("SELECT * FROM people WHERE name=$1")
 	if err != nil {
-		fmt.Println("GetUserByName Preperation Err: ", err)
+		fmt.Println("GetPeople Preperation Err: ", err)
 	}
 
 	// Make query with our stmt, passing in name argument
 	rows, err := stmt.Query(name)
 	if err != nil {
-		fmt.Println("GetUserByName Query Err: ", err)
+		fmt.Println("GetPeople Query Err: ", err)
 	}
 
 	// Create User struct for holding each row's data
-	var r User
+	var r Person
 	// Create slice of Users for our response
-	users := []User{}
+	people := []Person{}
 	// Copy the columns from row into the values pointed at by r (User)
 	for rows.Next() {
 		err = rows.Scan(
-			&r.ID,
 			&r.Name,
-			&r.Age,
-			&r.Profession,
-			&r.Friendly,
+			&r.Height,
+			&r.Mass,
+			&r.Gender,
+			&r.Homeworld,
 		)
 		if err != nil {
 			fmt.Println("Error scanning rows: ", err)
 		}
-		users = append(users, r)
+		people = append(people, r)
 	}
 
-	return users
+	return people
 }
