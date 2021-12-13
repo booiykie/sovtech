@@ -3,9 +3,10 @@ module booiykie.co.za
 go 1.17
 
 require (
+	github.com/bradford-hamilton/go-graphql-api v0.0.0-20200517010519-dae980f02612 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.7.7 // indirect
-	github.com/go-chi/chi v1.5.4 // indirect
+	github.com/go-chi/chi v3.3.3+incompatible // indirect
 	github.com/go-chi/render v1.0.1 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
