@@ -35,8 +35,7 @@ func New(connString string) (*Db, error) {
 func ConnString(host string, port int, user string, dbName string) string {
 	return fmt.Sprintf(
 		"host=%s port=%d user=%s dbname=%s sslmode=disable",
-		host, port, user, dbName,
-	)
+		host, port, user, dbName)
 }
 
 // User shape

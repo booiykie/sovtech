@@ -29,9 +29,8 @@ func initializeAPI() (*chi.Mux, *postgres.Db) {
 	router := chi.NewRouter()
 
 	// Create a new connection to our pg database
-	db, err := postgres.New(
-		postgres.ConnString("localhost", 5432, "swapi", "swapi_graphql_db"),
-	)
+	db, err := postgres.New("host='localhost' port=5432 user='api' dbname='swapi' sslmode=disable") // postgres.ConnString("localhost", 5432, "api", "swapi"),
+
 	if err != nil {
 		log.Fatal(err)
 	}
