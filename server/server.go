@@ -2,10 +2,12 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
-	"github.com/booiykie/sovtech/gql"
+	"booiykie.co.za/gql"
 
+	"github.com/go-chi/jwtauth"
 	"github.com/go-chi/render"
 	"github.com/graphql-go/graphql"
 )
@@ -20,7 +22,10 @@ type reqBody struct {
 }
 
 // GraphQL returns an http.HandlerFunc for our /graphql endpoint
-func (s *Server) GraphQL() http.HandlerFunc {
+func (s *Server) GraphQL(w http.ResponseWriter, r *http.Request) http.HandlerFunc {
+	_, claims, _ := jwtauth.FromContext(r.Context())
+	fmt.Printf("TEST CLAIMS: %s\n\n", claims)
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Check to ensure query was provided in the request body
 		if r.Body == nil {
